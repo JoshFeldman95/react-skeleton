@@ -1,0 +1,10 @@
+{
+  "apiKey": "AIzaSyAP_49GZ0UDMFbZ3U_C4Oc4h-fPIsWAme0",
+  "authDomain": "ga-deployment-56f27.firebaseapp.com",
+  "databaseURL": "https://ga-deployment-56f27.firebaseio.com",
+  "projectId": "ga-deployment-56f27",
+  "storageBucket": "",
+  "messagingSenderId": "1065251181102",
+  "appId": "1:1065251181102:web:9c5e76a91623dee8", 
+  "serviceAccount": "cred/ga-deployment-56f27-firebase-adminsdk-evdoy-de9eae0d5e.json"
+}

@@ -6,22 +6,30 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config ./webpack.config.js --mode development --port 5000",
+    "dev": "webpack-dev-server --config ./webpack.config.js --mode development --port 5001",
     "start": "nodemon server/app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.4.0",
+    "@material-ui/icons": "^4.4.1",
+    "chart.js": "^2.8.0",
     "express": "^4.16.4",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "file-loader": "^4.2.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "react-router-dom": "^4.3.1",
+    "react-table": "^7.0.0-alpha.35",
+    "react-window": "^1.8.5",
     "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0"
+    "socket.io-client": "^2.2.0",
+    "url-loader": "^2.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
