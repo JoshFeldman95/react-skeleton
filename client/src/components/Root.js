@@ -1,6 +1,11 @@
 import React from "react";
 import StudentContainer from "./StudentContainer.js"
 import socketIOClient from "socket.io-client";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+
 
 const endpoint = window.location.hostname + ":" + window.location.port;
 
@@ -12,6 +17,10 @@ const status = {
 
 
 const styles = {
+  appBar: {
+    position: 'relative',
+    backgroundColor: '#60aaff',
+  },
   container: {
     fontFamily: 'roboto',
     fontWeight: 300,
@@ -50,7 +59,8 @@ class Root extends React.Component {
       this.updateStudents(raw_data)
     })
     // open the request with the verb and the url
-    xhr.open('GET', 'http://localhost:5001/get_nodes?subject_id=p001&path=/studentInfo')
+    const url = window.location.hostname + ":" + window.location.port
+    xhr.open('GET', 'http://' + url + '/get_nodes?subject_id=p001&path=/studentInfo')
     // send the request
     xhr.send()
   }
@@ -91,6 +101,13 @@ class Root extends React.Component {
     );
       return (
         <div style={styles.container}>
+          <AppBar style={styles.appBar}>
+          <Toolbar>
+          <Typography variant="h6">
+            {"Student Overview"}
+          </Typography>
+          </Toolbar>
+          </AppBar>
           <div style={styles.students}>
                { studentContainers }
           </div>

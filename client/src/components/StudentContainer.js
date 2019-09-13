@@ -7,10 +7,10 @@ const styles = {
     width: "100%",
   },
   bubbleBack: {
-    padding: 8,
+    padding: 32,
     width: 200,
     height: 200,
-    borderRadius: 100,
+    borderRadius: 140,
     alignItems: "center",
     marginBottom: 8,
   },
@@ -56,14 +56,14 @@ export default class StudentContainer extends React.Component {
     let color;
     switch(this.props.info.priority) {
       case 0:
-        color = "#86ff7f"
+        color = "#62F76F"
         break;
       case 1:
-        color = "#fff640"
+        color = "#FFFD8E"
         // code block
         break;
       default:
-        color = "#ff3641"
+        color = "#FF7272"
     }
 
     return (
