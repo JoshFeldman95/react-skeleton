@@ -13,39 +13,41 @@ const styles = {
 export default class ProfileDonut extends Component {
     chartRef = React.createRef();
 
+    constructor(props) {
+      super(props)
+    }
+
     componentDidMount() {
+      console.log(this.props)
+      const hello = this.props
+      console.log(hello)
+      Chart.pluginService.register({
+        beforeDraw: (chart) => {
+          console.log("hello")
+          console.log(this.props)
+          var width = chart.chart.width,
+              height = chart.chart.height,
+              ctx = chart.chart.ctx;
+          ctx.clearRect(0, 0, width, height);
+          ctx.save();
+          var fontSize = (height / 300).toFixed(2);
+          ctx.font = "300 " + fontSize + "em roboto";
+          ctx.textBaseline = "middle";
+          ctx.fillStyle = "#777777";
+          var text = "4.7 hours",
+              textX = Math.round((width - ctx.measureText(text).width) / 2),
+              textY = height / 2 + 10;
 
-      // const data = {
-      //       datasets: [{
-      //           data: [10, 20, 30],
-      //           backgroundColor: ["#95c6ff", "#ffd895", "#ffa395"]
-      //       }],
-    // };
-
-    Chart.pluginService.register({
-      beforeDraw: function(chart) {
-        var width = chart.chart.width,
-            height = chart.chart.height,
-            ctx = chart.chart.ctx;
-        ctx.save();
-        var fontSize = (height / 300).toFixed(2);
-        ctx.font = "300 " + fontSize + "em roboto";
-        ctx.textBaseline = "middle";
-        ctx.fillStyle = "#777777";
-        var text = "4.7 hours",
-            textX = Math.round((width - ctx.measureText(text).width) / 2),
-            textY = height / 2 + 10;
-
-        var text2 = "7 sessions",
-            textY2 = textY+ 20;
+          var text2 = this.props.info.sessionCount.toString() + " sessions",
+              textY2 = textY+ 20;
 
 
-        ctx.fillText(text, textX, textY);
-        ctx.fillText(text2, textX, textY2)
-        ctx.restore();
+          ctx.fillText(text, textX, textY);
+          ctx.fillText(text2, textX, textY2)
+          ctx.restore();
 
-      }
-    });
+        }
+      });
       const data = {
         labels: [
           "Word Quest",

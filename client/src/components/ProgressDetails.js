@@ -20,7 +20,7 @@ export default class ProgressDetails extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      navIndex: 0
+      navIndex: 1
     }
   }
 

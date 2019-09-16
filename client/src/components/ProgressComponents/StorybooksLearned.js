@@ -5,13 +5,19 @@ import ListItem from "@material-ui/core/ListItem";
 
 const styles = {
   storiesLearned : {
-    padding: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingRight: 60,
+    paddingLeft: 60,
     display : "flex",
     alignItems: "center",
     flexDirection: "column",
     flexGrow: 1,
   },
-
+  booksBody : {
+    maxHeight: "60vh",
+    overflow: "scroll",
+  },
   storiesItem : {
     display: "flex",
     flex: 1,
@@ -23,17 +29,18 @@ const styles = {
   },
 
   storiesText: {
-    fontSize: 12,
+    fontSize: 20,
     fontFamily: "roboto",
     fontWeight: 300,
     textAlign: "center",
 
   },
   storiesTitle: {
-    fontSize: 18,
+    fontSize: 33,
     fontFamily: "roboto",
-      fontWeight: 300,
-    marginBottom: 20,
+    fontWeight: 300,
+    marginBottom: 30,
+    marginTop: 10
   },
   itemList : {
     borderStyle: "solid",
@@ -64,10 +71,12 @@ export default class StorybooksLearned extends React.Component {
     return (
       <div style= {styles.storiesLearned}>
         <div style={styles.storiesTitle}>Storybook Progress</div>
+        <div style={styles.booksBody}>
         <List
         >
           {this.props.info.booksLearned.map(item => <div style={styles.storiesItem}><div style={styles.storiesText}>{item.key}</div></div>)}
         </List>
+        </div>
       </div>
     )
 

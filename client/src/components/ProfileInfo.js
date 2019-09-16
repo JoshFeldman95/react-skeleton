@@ -2,6 +2,17 @@ import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import ProfileDonut from './ProfileDonut.js'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+let theme = createMuiTheme({
+  palette: {
+    primary: {
+        main: '#FFFFFF'
+      }
+    }
+  },
+)
+
 
 const styles = {
   profileInfo : {
@@ -72,7 +83,7 @@ export default class ProfileInfo extends React.Component {
           flexDirection: 'column'
         }}>
         </div>
-        <ProfileDonut />
+        <ProfileDonut info={this.props.info}/>
         <Button onClick={() => {this.props.closeModal()}} style={{backgroundColor: "#60aaff"}}variant="contained" color="primary">
           Close
         </Button>

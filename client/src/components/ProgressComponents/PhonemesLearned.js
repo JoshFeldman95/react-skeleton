@@ -31,7 +31,10 @@ const styles = {
     width: "80%"
   },
   wordsLearned : {
-    padding: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingRight: 60,
+    paddingLeft: 60,
     display : "flex",
     alignItems: "center",
     flexDirection: "column",
@@ -44,26 +47,32 @@ const styles = {
     borderStyle: "solid",
     borderColor: "#222222",
     borderWidth: 0.5,
-    flex: "1 0 calc(25% - 40px)",
+    flex: "1 0 calc(33% - 40px)",
   },
   placeholder: {
     borderStyle: "hidden",
   },
   wordBody : {
+    maxHeight: "65vh",
+    overflow: "scroll",
     display: "flex",
     flexWrap: "wrap",
+    borderStyle: "solid",
+    borderColor: "#222222",
+    borderWidth: 0.5,
   },
   wordText: {
-    fontSize: 12,
+    fontSize: 20,
     fontFamily: "roboto",
     fontWeight: 300,
     textAlign: "center",
   },
   wordTitle: {
-    fontSize: 18,
+    fontSize: 33,
     fontFamily: "roboto",
     fontWeight: 300,
-    marginBottom: 20,
+    marginBottom: 30,
+    marginTop: 10
   }
 
 };
@@ -79,11 +88,11 @@ export default class PhonemesLearned extends React.Component {
     switch (item.status) {
       case status.CORRECT:
         return (
-          <div style={{backgroundColor: "#76C981", ...styles.wordItem}}><div style={styles.wordText}>{item.key}</div></div>
+          <div style={{backgroundColor: "#91ff82", ...styles.wordItem}}><div style={styles.wordText}>{item.key}</div></div>
         )
       case status.INCORRECT:
         return (
-          <div style={{backgroundColor: "#FF8E8E", ...styles.wordItem}}>
+          <div style={{backgroundColor: "#ffa395", ...styles.wordItem}}>
           <div style={styles.wordText}>{item.key}
           </div></div>
         )
@@ -94,7 +103,7 @@ export default class PhonemesLearned extends React.Component {
   }
 
   render() {
-    let remainder = 4 - this.props.info.phonemesLearned.length%4;
+    let remainder = 3 - this.props.info.phonemesLearned.length%3;
     let placeholders = [...Array(remainder).keys()].map(i => (<div style={{...styles.wordItem, ...styles.placeholder}}><div style={styles.wordText}></div></div>))
     return (
       <div style= {styles.wordsLearned}>

@@ -56,14 +56,14 @@ export default class StudentContainer extends React.Component {
     let color;
     switch(this.props.info.priority) {
       case 0:
-        color = "#62F76F"
+        color = "#91ff82"
         break;
       case 1:
         color = "#FFFD8E"
         // code block
         break;
       default:
-        color = "#FF7272"
+        color = "#ffa395"
     }
 
     return (

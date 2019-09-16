@@ -72,8 +72,19 @@ class Root extends React.Component {
     })
     console.log("updating students to")
     console.log(data)
-
-    this.setState({studentInfo: data})
+    data.sort(function(a,b) { return a.sessionCount - b.sessionCount})
+    console.log(data)
+    const prioritized_data = data.map(studentInfo => {
+      const newData = {...studentInfo}
+      if (studentInfo.sessionCount > 10) {
+        newData.priority = 0
+      }
+      else {
+        newData.priority = 2
+      }
+      return newData;
+    })
+    this.setState({studentInfo: prioritized_data})
   }
 
 
@@ -86,6 +97,7 @@ class Root extends React.Component {
     })
 
     socket.on('student_info', (data) => {
+      console.log("getting more student info")
       this.updateStudents(data.studentInfo)
     })
 
