@@ -6,14 +6,32 @@ from flask import *
 from time import sleep
 from flask_socketio import SocketIO
 from flask_socketio import join_room, leave_room
+import functools
+import flask
+from flask import *
+from authlib.client import OAuth2Session
+import google.oauth2.credentials
+import googleapiclient.discovery
+import google_auth
+
+
 
 def get_config_data(filename):
 	f = open(filename)
 	return json.load(f)
+
+
+def get_auth_emails(filename):
+	f = open("authorized_emails.txt")
+	lines = f.readlines()
+	return set(lines)
+
+
 template_dir = os.path.abspath('../client/dist')
 static_dir = os.path.abspath('../client/src')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
+app.register_blueprint(google_auth.app)
 socketio = SocketIO(app, async_mode="threading")
 
 config = get_config_data("cred/config.txt")
@@ -21,10 +39,19 @@ db = DB()
 db.authenticate(config_data=config)
 student_info_streamer = DB.StudentInfoStream(db, socketio)
 
+auth_emails = get_auth_emails("authorized_emails.txt")
+
 
 @app.route("/")
 def home():
-	return render_template("index.html")
+    if google_auth.is_logged_in():
+        user_info = google_auth.get_user_info()
+        if user_info["email"] in auth_emails:
+        	return render_template("index.html")
+        else:
+        	return "You are not an authorized user. Please contact admin to add you to user list"
+
+    return render_template("login.html")
 
 @app.route("/create", methods=["POST"])
 def create_endpoint():
