@@ -127,12 +127,12 @@ class Root extends React.Component {
       filteredStudents = filteredStudents.filter((stud) => {
         console.log(stud.name)
         console.log(this.state.filter)
-        stud.name.startsWith(this.state.filter);
+        return stud.name.startsWith(this.state.filter);
       })
     }
     console.log(filteredStudents)
-    const studentContainers = filteredStudents.map((studentInfo) =>
-      <StudentContainer image={studentInfo.image} info={studentInfo} key={studentInfo.id}/>
+    const studentContainers = filteredStudents.map((studentInfo, index) =>
+      <StudentContainer image={studentInfo.image} info={studentInfo} key={index}/>
     );
       return (
         <div style={styles.container}>
