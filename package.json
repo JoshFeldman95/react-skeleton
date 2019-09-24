@@ -3,11 +3,18 @@
   "version": "1.0.0",
   "description": "a skeleton for starting a react project with webpack and babel",
   "repository": "https://github.com/mit6148-workshops/react-skeleton",
-  "main": "index.js",
+  "main": "server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config ./webpack.config.js --mode development --port 5001",
-    "start": "nodemon server/app.js"
+    "start": "webpack-dev-server --port 7081 --history-api-fallback",
+    "build": "webpack --config webpack.config.js",
+    "compress": "webpack --config webpack.config.js",
+    "production": "npm run build && npm run serve",
+    "serve": "python server/app.py",
+    "lint-js": "eslint -c './src/config/.eslintrc.js' src/",
+    "lint-py": "pylint server/app.py",
+    "lint": "npm run lint-js && npm run lint-py",
+    "jest": "jest",
+    "test": "npm run build && npm run lint && npm run jest && pytest"
   },
   "author": "",
   "license": "ISC",
@@ -37,18 +44,24 @@
     "acorn": "^6.1.1",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^2.1.0",
     "eslint": "^5.16.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.11.0",
     "nodemon": "^1.18.9",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "react-hot-loader": "^4.6.3",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.1.2",
     "webpack-dev-middleware": "^3.5.0",
     "webpack-dev-server": "^3.1.14",
-    "webpack-hot-middleware": "^2.24.3"
+    "webpack-hot-middleware": "^2.24.3",
+    "webpack-merge": "^4.2.2"
   }
 }

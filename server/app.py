@@ -22,7 +22,7 @@ def get_config_data(filename):
 
 
 def get_auth_emails(filename):
-	f = open("authorized_emails.txt")
+	f = open("server/authorized_emails.txt")
 	lines = f.readlines()
 	return set(lines)
 
@@ -34,12 +34,12 @@ app.config['SECRET_KEY'] = 'secret!'
 app.register_blueprint(google_auth.app)
 socketio = SocketIO(app, async_mode="threading")
 
-config = get_config_data("cred/config.txt")
+config = get_config_data("server/cred/config.txt")
 db = DB()
 db.authenticate(config_data=config)
 student_info_streamer = DB.StudentInfoStream(db, socketio)
 
-auth_emails = get_auth_emails("authorized_emails.txt")
+auth_emails = get_auth_emails("server/authorized_emails.txt")
 
 
 @app.route("/")
