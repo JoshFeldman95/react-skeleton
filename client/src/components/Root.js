@@ -5,6 +5,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
+import Search from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Grid from '@material-ui/core/Grid'
 
 
 const endpoint = window.location.hostname + ":" + window.location.port;
@@ -35,6 +40,14 @@ const styles = {
     flexWrap: 'wrap',
     backgroundColor: '#fff',
     flexDirection: 'row',
+  },
+  input: {
+    color: "white",
+    borderWidth: 1,
+    borderBottomStyle: "solid",
+    borderColor: "white",
+    padding: 2,
+    borderRadius: 1,
   }
 };
 
@@ -43,7 +56,8 @@ class Root extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      studentInfo : []
+      studentInfo : [],
+      filter: "",
     }
   };
 
@@ -108,16 +122,42 @@ class Root extends React.Component {
   }
 
   render() {
-    const studentContainers = this.state.studentInfo.map((studentInfo) =>
+    let filteredStudents = this.state.studentInfo
+    if (this.state.filter) {
+      filteredStudents = filteredStudents.filter((stud) => {
+        console.log(stud.name)
+        console.log(this.state.filter)
+        stud.name.startsWith(this.state.filter);
+      })
+    }
+    console.log(filteredStudents)
+    const studentContainers = filteredStudents.map((studentInfo) =>
       <StudentContainer image={studentInfo.image} info={studentInfo} key={studentInfo.id}/>
     );
       return (
         <div style={styles.container}>
           <AppBar style={styles.appBar}>
           <Toolbar>
-          <Typography variant="h6">
-            {"Student Overview"}
-          </Typography>
+            <Grid
+              justify="space-between" // Add it here :)
+              container
+              spacing={24}
+            >
+              <Typography variant="h6">
+                {"Student Overview"}
+              </Typography>
+              <Input
+                id="input-with-icon-adornment"
+                startAdornment={
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                }
+                onChange={(e) => {this.setState({filter: e.target.value})}}
+                style={styles.input}
+                disableUnderline={true}
+              />
+            </Grid>
           </Toolbar>
           </AppBar>
           <div style={styles.students}>
