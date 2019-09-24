@@ -14,17 +14,36 @@ import google.oauth2.credentials
 import googleapiclient.discovery
 import google_auth
 
+from flask_jwt import JWT, jwt_required, current_identity
+from werkzeug.security import safe_str_cmp
 
+class User(object):
+    def __init__(self, id, classroom, username, password):
+        self.id = id
+        self.classroom = classroom
+        self.username = username
+        self.password = password
 
-def get_config_data(filename):
-	f = open(filename)
-	return json.load(f)
+    def __str__(self):
+		#remove, this is only for debugging.
+        return "User(id=%s, classroom=%s, user=%s, pass=%s)" % (self.id, self.classroom, self.username, self.password)
+users = [
+    User(1, "p001", 'alex', 'pass'),
+    User(2, "p002", 'ishaan', 'pass'),
+]
+
+username_table = {u.username: u for u in users}
+userid_table = {u.id: u for u in users}
 
 
 def get_auth_emails(filename):
 	f = open("server/authorized_emails.txt")
 	lines = f.readlines()
 	return set(lines)
+
+def get_config_data(filename):
+	f = open(filename)
+	return json.load(f)
 
 
 template_dir = os.path.abspath('../client/dist')
@@ -42,16 +61,36 @@ student_info_streamer = DB.StudentInfoStream(db, socketio)
 auth_emails = get_auth_emails("server/authorized_emails.txt")
 
 
+def authenticate(username, password):
+    user = username_table.get(username, None)
+    if user and safe_str_cmp(user.password.encode('utf-8'), password.encode('utf-8')):
+        return user
+
+def identity(payload):
+    user_id = payload['identity']
+    return userid_table.get(user_id, None)
+
+jwt = JWT(app, authenticate, identity)
+@app.route('/protected')
+@jwt_required()
+def protected():
+    return '%s' % current_identity
+
 @app.route("/")
 def home():
-    if google_auth.is_logged_in():
-        user_info = google_auth.get_user_info()
-        if user_info["email"] in auth_emails:
-        	return render_template("index.html")
-        else:
-        	return "You are not an authorized user. Please contact admin to add you to user list"
+    # if google_auth.is_logged_in():
+    #     user_info = google_auth.get_user_info()
+    #     if user_info["email"] in auth_emails:
+	#
+    #     else:
+    #     	return "You are not an authorized user. Please contact admin to add you to user list"
+	#
+    # return render_template("login.html")
+	return render_template("index.html")
 
-    return render_template("login.html")
+@app.route("/login")
+def show_login():
+	return render_template("index.html")
 
 @app.route("/create", methods=["POST"])
 def create_endpoint():
@@ -107,6 +146,17 @@ def get_nodes_endpoint():
 
 	data, return_val = db.get_nodes(subject_id, path)
 
+	if return_val == 1:
+		return jsonify(data)
+	elif return_val == -1:
+		return Response(data, 400)
+
+
+@app.route("/get_students", methods=["GET"])
+@jwt_required()
+def get_students_endpoint():
+	print ("getting data for: %s" % current_identity)
+	data, return_val = db.get_nodes(current_identity.classroom, "/studentInfo")
 	if return_val == 1:
 		return jsonify(data)
 	elif return_val == -1:

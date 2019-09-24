@@ -175,6 +175,8 @@ const devSettings = {
   devServer: {
     historyApiFallback: true,
     proxy: {
+      '/login' : 'http://localhost:5000',
+      '/get_students' : 'http://localhost:5000',
       '/get_nodes' : 'http://localhost:5000',
       '/static/*': 'http://localhost:5000/static/',
       '/socket.io/*': {

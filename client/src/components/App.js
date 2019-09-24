@@ -3,6 +3,7 @@ import "../css/app.css";
 import Route from "react-router-dom/es/Route";
 import Switch from "react-router-dom/es/Switch"
 import Root from "./Root"
+import SignIn from "./Auth"
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 let theme = createMuiTheme({
@@ -26,6 +27,9 @@ class App extends React.Component {
             <MuiThemeProvider theme={theme}>
               <Root/>
             </MuiThemeProvider>
+          )} />
+          <Route exact path="/login" render={() => (
+              <Root />
           )} />
         </Switch>
       </div>
