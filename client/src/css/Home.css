@@ -1,0 +1,105 @@
+.NavBar-container {
+    padding: var(--s) var(--m);
+    background-color: var(--white);
+}
+  
+.NavBar-logo {
+    color: var(--darkergrey);
+    font-size: var(--l);
+    flex: 1 1 auto;
+}
+
+.NavBar-link,
+.NavBar-link:visited {
+    color: var(--darkergrey);
+    text-decoration: none;
+    white-space: nowrap;
+    margin-bottom: auto;
+    margin-top: auto;
+    padding: var(--s);
+}
+
+.NavBar-link:hover {
+    background-color: var(--darkergrey);
+    color: var(--white);
+    font-weight: 400;
+}
+
+.NavBar-link + .NavBar-link {
+    margin-left: var(--m);
+}
+.qualificationContainer {
+    padding: 0px var(--m);
+    margin: 0px var(--m);
+    border-radius: var(--s);
+    
+    background-color: var(--primary--dim);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.NavBar-qualificationContainer {
+    width: 128px;
+}
+
+.NavBar-qualification {
+    font-family: var(--serif);
+    text-decoration: none;
+    color: var(--darkergrey);
+    white-space: nowrap;
+}
+
+.HomePage-splashContainer{
+    height: 500px;
+    display: flex;
+    background: var(--primary--dim);
+    background: linear-gradient(180deg, var(--primary--dim) 0%, var(--primary) 100%);
+}
+
+.HomePage-splashImage {
+    width: 50%;
+}
+
+.HomePage-splashTextContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: var(--xl);
+}
+
+.HomePage-splashTitle {
+    font-size: xx-large;
+    font-weight: 900;
+}
+
+.HomePage-splashSubtitle {
+    margin: var(--s) 0 0 0;
+}
+
+.HomePage-banner {
+    display:flex;
+    justify-content: center;
+    height: 64px;
+    padding: var(--xl);
+    background-color: var(--white);
+}
+
+.HomePage-qualificationContainer {
+    width: 180px;
+}
+
+.HomePage-qualification {
+    font-family: var(--serif);
+    text-decoration: none;
+    color: var(--darkergrey);
+    white-space: nowrap;
+    font-size: larger;
+    font-weight: 900;
+}
+
+.HomePage-container {
+    background-color: var(--darkergrey);
+    height: 100vh;
+}
